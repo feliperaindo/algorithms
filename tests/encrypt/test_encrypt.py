@@ -8,9 +8,9 @@ invalid_key = 'ten'
 invalid_message = 12345
 
 valid_message = 'message'
-reverted_message = valid_message[::-1]
 odd_encrypt = 'ega_ssem'
 even_encrypt = 'sem_egas'
+reverted_message = valid_message[::-1]
 
 odd_key = 4
 big_key = 30
