@@ -1,33 +1,3 @@
-ALPHABET = {
-    "a": 1,
-    "b": 2,
-    "c": 3,
-    "d": 4,
-    "e": 5,
-    "f": 6,
-    "g": 7,
-    "h": 8,
-    "i": 9,
-    "j": 10,
-    "k": 11,
-    "l": 12,
-    "m": 13,
-    "n": 14,
-    "o": 15,
-    "p": 16,
-    "q": 17,
-    "r": 18,
-    "s": 19,
-    "t": 20,
-    "u": 21,
-    "v": 22,
-    "w": 23,
-    "x": 24,
-    "y": 25,
-    "z": 26,
-}
-
-
 def is_anagram(first_str: str, second_str: str):
     first, second = to_lower_case(first_str), to_lower_case(second_str)
     same_len, first_len, second_len = check_same_len(first, second)
@@ -86,14 +56,10 @@ def sort_dict(list_to_sort: list) -> list:
 
     pivot_key, pivot_value = list_to_sort[0]
     less = [
-        (key, value)
-        for key, value in list_to_sort[1:]
-        if ALPHABET[key] <= ALPHABET[pivot_key]
+        (key, value) for key, value in list_to_sort[1:] if key <= pivot_key
     ]
     greater = [
-        (key, value)
-        for key, value in list_to_sort[1:]
-        if ALPHABET[key] > ALPHABET[pivot_key]
+        (key, value) for key, value in list_to_sort[1:] if key > pivot_key
     ]
 
     return sort_dict(less) + [(pivot_key, pivot_value)] + sort_dict(greater)
