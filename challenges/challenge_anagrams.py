@@ -1,4 +1,4 @@
-alphabet = {
+ALPHABET = {
     "a": 1,
     "b": 2,
     "c": 3,
@@ -28,52 +28,17 @@ alphabet = {
 }
 
 
-def sort_dict(list_to_sort: list) -> list:
-    if len(list_to_sort) < 2:
-        return list_to_sort
+def is_anagram(first_str: str, second_str: str):
+    first, second = to_lower_case(first_str), to_lower_case(second_str)
+    same_len, first_len, second_len = check_same_len(first, second)
+    first_dict = create_dict(first, first_len)
+    second_dict = create_dict(second, second_len)
 
-    pivot_key, pivot_value = list_to_sort[0]
-    less = [
-        (key, value)
-        for key, value in list_to_sort[1:]
-        if alphabet[key] <= alphabet[pivot_key]
-    ]
-    greater = [
-        (key, value)
-        for key, value in list_to_sort[1:]
-        if alphabet[key] > alphabet[pivot_key]
-    ]
+    if not same_len or not check_is_anagram(first_dict, second_dict):
+        return (return_anagram(first_dict), return_anagram(second_dict), False)
 
-    return sort_dict(less) + [(pivot_key, pivot_value)] + sort_dict(greater)
-
-
-def check_is_anagram(f_dict: dict, s_dict: dict) -> bool:
-    for letter in f_dict:
-        if letter not in s_dict or f_dict[letter] != s_dict[letter]:
-            return False
-    return True
-
-
-def create_dict(string: str, length: int) -> (dict, dict):
-    letters = {}
-
-    index = 0
-    while index < length:
-        if string[index] not in letters:
-            letters[string[index]] = 0
-        letters[string[index]] += 1
-        index += 1
-
-    return letters
-
-
-def list_to_string(list_to_trans: list) -> str:
-    final_string = ""
-
-    for letter, quantity in list_to_trans:
-        final_string = f"{final_string}{letter * quantity}"
-
-    return final_string
+    anagram_sorted = return_anagram(first_dict)
+    return (anagram_sorted, anagram_sorted, True)
 
 
 def to_lower_case(string: str) -> str:
@@ -90,19 +55,54 @@ def check_same_len(first: str, second: str):
     )
 
 
+def create_dict(string: str, length: int) -> (dict, dict):
+    letters = {}
+
+    index = 0
+    while index < length:
+        if string[index] not in letters:
+            letters[string[index]] = 0
+        letters[string[index]] += 1
+        index += 1
+
+    return letters
+
+
+def check_is_anagram(f_dict: dict, s_dict: dict) -> bool:
+    for letter in f_dict:
+        if letter not in s_dict or f_dict[letter] != s_dict[letter]:
+            return False
+    return True
+
+
 def return_anagram(dict_to_trans: dict) -> str:
     sorted_anagram = sort_dict(list(dict_to_trans.items()))
     return list_to_string(sorted_anagram)
 
 
-def is_anagram(first_str: str, second_str: str):
-    first, second = to_lower_case(first_str), to_lower_case(second_str)
-    same_len, first_len, second_len = check_same_len(first, second)
-    first_dict = create_dict(first, first_len)
-    second_dict = create_dict(second, second_len)
+def sort_dict(list_to_sort: list) -> list:
+    if len(list_to_sort) < 2:
+        return list_to_sort
 
-    if not same_len or not check_is_anagram(first_dict, second_dict):
-        return (return_anagram(first_dict), return_anagram(second_dict), False)
+    pivot_key, pivot_value = list_to_sort[0]
+    less = [
+        (key, value)
+        for key, value in list_to_sort[1:]
+        if ALPHABET[key] <= ALPHABET[pivot_key]
+    ]
+    greater = [
+        (key, value)
+        for key, value in list_to_sort[1:]
+        if ALPHABET[key] > ALPHABET[pivot_key]
+    ]
 
-    anagram_sorted = return_anagram(first_dict)
-    return (anagram_sorted, anagram_sorted, True)
+    return sort_dict(less) + [(pivot_key, pivot_value)] + sort_dict(greater)
+
+
+def list_to_string(list_to_trans: list) -> str:
+    final_string = ""
+
+    for letter, quantity in list_to_trans:
+        final_string = f"{final_string}{letter * quantity}"
+
+    return final_string
