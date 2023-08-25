@@ -50,17 +50,13 @@ def return_anagram(dict_to_trans: dict) -> str:
     return list_to_string(sorted_anagram)
 
 
-def sort_dict(list_to_sort: list) -> list:
-    if len(list_to_sort) < 2:
-        return list_to_sort
+def sort_dict(to_sort: list) -> list:
+    if len(to_sort) < 2:
+        return to_sort
 
-    pivot_key, pivot_value = list_to_sort[0]
-    less = [
-        (key, value) for key, value in list_to_sort[1:] if key <= pivot_key
-    ]
-    greater = [
-        (key, value) for key, value in list_to_sort[1:] if key > pivot_key
-    ]
+    pivot_key, pivot_value = to_sort[0]
+    less = [(key, value) for key, value in to_sort[1:] if key <= pivot_key]
+    greater = [(key, value) for key, value in to_sort[1:] if key > pivot_key]
 
     return sort_dict(less) + [(pivot_key, pivot_value)] + sort_dict(greater)
 
