@@ -24,12 +24,13 @@ def check_tuple_values(tuple_to_check):
 def study_schedule(permanence_period, target_time):
     if check_time(target_time) or check_list(permanence_period):
         return None
-    counter = 0
     index = 0
+    counter = 0
     list_len = len(permanence_period)
     while index < list_len:
-        if (check_tuple(permanence_period[index])
-                or check_tuple_values(permanence_period[index])):
+        if check_tuple(permanence_period[index]) or check_tuple_values(
+            permanence_period[index]
+        ):
             return None
 
         first, second = permanence_period[index]
