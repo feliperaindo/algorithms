@@ -1,17 +1,13 @@
-def check_time(time):
-    return True if (type(time) is not int) else False
+def check_time(time) -> bool:
+    return type(time) is not int
 
 
-def check_list(list_to_check):
-    return True if type(list_to_check) is not list else False
+def check_list(list_to_check) -> bool:
+    return type(list_to_check) is not list
 
 
 def check_tuple(tuple_to_check):
-    if type(tuple_to_check) is not tuple:
-        return True
-    if len(tuple_to_check) != 2:
-        return True
-    return False
+    return type(tuple_to_check) is not tuple or len(tuple_to_check) != 2
 
 
 def check_tuple_values(tuple_to_check):
@@ -24,6 +20,7 @@ def check_tuple_values(tuple_to_check):
 def study_schedule(permanence_period, target_time):
     if check_time(target_time) or check_list(permanence_period):
         return None
+
     index = 0
     counter = 0
     list_len = len(permanence_period)
